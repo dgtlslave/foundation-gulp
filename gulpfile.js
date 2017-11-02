@@ -103,9 +103,6 @@ gulp.task('js:build', function () {
 				)
 			)
 		)
-//		.pipe(
-//			$if(isProduction, babel({"presets": ["es2015"]}))
-		//)
 		.pipe(
 			$if(isProduction,
 				uglify().on('error', notify.onError(
@@ -145,7 +142,6 @@ gulp.task('style:build', function () {
 		.pipe(
 			$if(!isProduction, sourcemaps.write(path.sourcemaps))
 		)
-		// .pipe(cssmin())
 		.pipe(gulp.dest(path.build.css))
 		.pipe(notify({ message: 'Styles task complete', sound: false, onLast: true }))
 		.pipe(reload({stream: true}));
@@ -178,19 +174,19 @@ gulp.task('build', [
 
 
 gulp.task('watch', function(){
-	watch(path.watch.html, function(event, cb) {
+	gulp.watch(path.watch.html, function(event, cb) {
 		gulp.start('html:build');
 	});
-	watch(path.watch.style, function(event, cb) {
+	gulp.watch(path.watch.style, function(event, cb) {
 		gulp.start('style:build');
 	});
-	watch(path.watch.js, function(event, cb) {
+	gulp.watch(path.watch.js, function(event, cb) {
 		gulp.start('js:build');
 	});
-	watch(path.watch.img, function(event, cb) {
+	gulp.watch(path.watch.img, function(event, cb) {
 		gulp.start('image:build');
 	});
-	watch(path.watch.fonts, function(event, cb) {
+	gulp.watch(path.watch.fonts, function(event, cb) {
 		gulp.start('fonts:build');
 	});
 });
